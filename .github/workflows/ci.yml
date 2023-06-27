@@ -37,7 +37,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: mrmineleung/mtr-react-app:${{ steps.current-time.outputs.formattedTime }}
+          tags: mrmineleung/mtr-react-app:latest, mrmineleung/mtr-react-app:${{ steps.current-time.outputs.formattedTime }}
 
 #       -
 #         name: Deploy
