@@ -7,7 +7,7 @@ on:
 
 jobs:
   docker:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       -
         name: Checkout
@@ -39,7 +39,7 @@ jobs:
           push: true
           tags: mrmineleung/mtr-react-app:${{ steps.current-time.outputs.formattedTime }}
 
-      -
-        name: Deploy
-        run: |
-          kubectl set image deployment/mtr-react-app mrmineleung/mtr-react-app=${{ steps.meta.outputs.tags }}
+#       -
+#         name: Deploy
+#         run: |
+#           kubectl set image deployment/mtr-react-app mrmineleung/mtr-react-app=${{ steps.meta.outputs.tags }}
