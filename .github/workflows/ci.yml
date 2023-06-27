@@ -24,10 +24,22 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - 
+        name: Get current time
+        uses: josStorer/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYYMMDD-HHmmss
+          utcOffset: "+08:00"
       -
         name: Build and push
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: mrmineleung/mtr-react-app:latest
+          tags: mrmineleung/mtr-react-app:${{ steps.current-time.outputs.formattedTime }}
+
+      -
+        name: Deploy
+        run: |
+          kubectl set image deployment/mtr-react-app mrmineleung/mtr-react-app=${{ steps.meta.outputs.tags }}
