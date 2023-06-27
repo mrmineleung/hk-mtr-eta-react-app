@@ -1,0 +1,21 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mtr-react-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mtr-react-app
+  template:
+    metadata:
+      labels:
+        app: mtr-react-app
+    spec:
+      containers:
+      - name: mtr-react-app
+        image: mrmineleung/mtr-react-app
+        ports:
+        - containerPort: 3000
+      imagePullSecrets:   
+      - name: docker-private-image-secret
