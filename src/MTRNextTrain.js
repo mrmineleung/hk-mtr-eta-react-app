@@ -11,8 +11,6 @@ function MTRNextTrain() {
 
 	const [trainData, setTrainData] = useState({ up: [], down: [] });
 
-
-
 	const [urlParam, setUrlParam] = useState({ mtr_line: mtr_line_menu[0].code, mtr_sta: mtr_line_menu[0].submenu[0].code });
 	const [dropdownLabel, setDropdownLabel] = useState({ mtr_line: mtr_line_menu[0].desc, mtr_sta: mtr_line_menu[0].submenu[0].desc });
 	const [isLoading, setIsLoading] = useState(false);
