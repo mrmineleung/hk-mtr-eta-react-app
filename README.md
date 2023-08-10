@@ -1,4 +1,4 @@
-## HK MTR ETA React App
+# HK MTR ETA React App
 
 Providing the ETA for up to the next four trains of the Airport Express, Tung Chung Line, Tuen Ma Line, Tseung Kwan O Line, East Rail Line, South Island Line, Tsuen Wan Line and Island Line.
 
