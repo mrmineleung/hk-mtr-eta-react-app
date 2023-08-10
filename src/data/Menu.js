@@ -254,7 +254,7 @@ const mtr_line_menu = [
 			},
 			{
 				"code": "SHW",
-				"desc": "Sheung W an"
+				"desc": "Sheung Wan"
 			},
 			{
 				"code": "CEN",

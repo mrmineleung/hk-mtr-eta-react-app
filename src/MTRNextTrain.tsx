@@ -6,19 +6,18 @@ import SkeletonLoader from 'tiny-skeleton-loader-react';
 import mtr_line_menu from './data/Menu'
 
 
-function MTRNextTrain() {
+const MTRNextTrain = () => {
 
-	const [trainData, setTrainData] = useState({ up: [], down: [] });
-
-	const [urlParam, setUrlParam] = useState({ mtr_line: mtr_line_menu[0].code, mtr_sta: mtr_line_menu[0].submenu[0].code });
-	const [dropdownLabel, setDropdownLabel] = useState({ mtr_line: mtr_line_menu[0].desc, mtr_sta: mtr_line_menu[0].submenu[0].desc });
-	const [isLoading, setIsLoading] = useState(false);
-	const [isError, setIsError] = useState(false);
-	const [isRefresh, setIsRefresh] = useState(true);
-	const [isSpecialTrainServicesArrangement, setIsSpecialTrainServicesArrangement] = useState(false);
-	const [isDelay, setIsDelay] = useState(false);
-	const [specialTrainServicesArrangement, setSpecialTrainServicesArrangement] = useState({});
-	const [weatherWarningMessage, setWeatherWarningMessage] = useState("");
+	const [trainData, setTrainData] = useState<{ up: [], down: []}>({ up: [], down: [] });
+	const [urlParam, setUrlParam] = useState<{mtr_line: string, mtr_sta: string}>({ mtr_line: mtr_line_menu[0].code, mtr_sta: mtr_line_menu[0].submenu[0].code });
+	const [dropdownLabel, setDropdownLabel] = useState<{mtr_line: string, mtr_sta: string}>({ mtr_line: mtr_line_menu[0].desc, mtr_sta: mtr_line_menu[0].submenu[0].desc });
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [isError, setIsError] = useState<boolean>(false);
+	const [isRefresh, setIsRefresh] = useState<boolean>(true);
+	const [isSpecialTrainServicesArrangement, setIsSpecialTrainServicesArrangement] = useState<boolean>(false);
+	const [isDelay, setIsDelay] = useState<boolean>(false);
+	const [specialTrainServicesArrangement, setSpecialTrainServicesArrangement] = useState<{message: string, url: string}>({message: '', url: ''});
+	const [weatherWarningMessage, setWeatherWarningMessage] = useState<string>("");
 
 
 	const handleRefreshButton = () => {
@@ -100,14 +99,14 @@ function MTRNextTrain() {
 		return () => clearInterval(interval);
 	})
 
-
 	return (
-		<Container>
+		<>
+			<Container>
 			<h1>MTR Next Train</h1>
 			<Row className="justify-content-md-center">
 				<Col>
 					<Dropdown title={dropdownLabel.mtr_line}
-						buttonList={mtr_line_menu}
+						selectedTrainLine={mtr_line_menu}
 						returnUrlParam={(line, sta) => setUrlParam({ mtr_line: line, mtr_sta: sta })}
 						returnDropdownLabel={(line, sta) => setDropdownLabel({ mtr_line: line, mtr_sta: sta })} >
 					</Dropdown>
@@ -117,7 +116,7 @@ function MTRNextTrain() {
 			<Row className="justify-content-md-center">
 				<Col>
 					<Dropdown title={dropdownLabel.mtr_sta}
-						buttonList={mtr_line_menu}
+						selectedTrainLine={mtr_line_menu}
 						returnUrlParam={(line, sta) => setUrlParam({ mtr_line: line, mtr_sta: sta })}
 						returnDropdownLabel={(line, sta) => setDropdownLabel({ mtr_line: line, mtr_sta: sta })}
 						parentId={urlParam.mtr_line}>
@@ -150,7 +149,7 @@ function MTRNextTrain() {
 
 			<Table className="mt-4">
 				<thead>
-					<tr><th colSpan="4">To {mtr_line_menu.filter(menu => menu.code === urlParam.mtr_line).map(item => item.submenu[item.submenu.length - 1].desc)} (UP)</th></tr>
+					<tr><th colSpan={4}>To {mtr_line_menu.filter(menu => menu.code === urlParam.mtr_line).map(item => item.submenu[item.submenu.length - 1].desc)} (UP)</th></tr>
 					<tr><th></th></tr>
 					<tr>
 						<th>Arrival Time</th>
@@ -160,8 +159,8 @@ function MTRNextTrain() {
 					</tr>
 				</thead>
 				<tbody>
-					{isLoading ? <tr><td colSpan="4"><SkeletonLoader /></td></tr> :
-						trainData.up.map(item => (
+					{isLoading ? <tr><td colSpan={4}><SkeletonLoader /></td></tr> :
+						trainData.up.map((item: any) => (
 							<tr key={item.curr_time + item.ttnt}>
 								<td>{item.time === null ? '-' : item.time}</td>
 								<td>{item.plat === null ? '-' : `Platform ${item.plat}`}</td>
@@ -175,7 +174,7 @@ function MTRNextTrain() {
 
 			<Table className="mt-4">
 				<thead>
-					<tr><th colSpan="4">To {mtr_line_menu.filter(menu => menu.code === urlParam.mtr_line).map(item => item.submenu[0].desc)} (DOWN)</th></tr>
+					<tr><th colSpan={4}>To {mtr_line_menu.filter(menu => menu.code === urlParam.mtr_line).map(item => item.submenu[0].desc)} (DOWN)</th></tr>
 					<tr><th></th></tr>
 					<tr>
 						<th>Arrival Time</th>
@@ -185,8 +184,8 @@ function MTRNextTrain() {
 					</tr>
 				</thead>
 				<tbody>
-					{isLoading ? <tr><td colSpan="4"><SkeletonLoader /></td></tr> :
-						trainData.down.map(item => (
+					{isLoading ? <tr><td colSpan={4}><SkeletonLoader /></td></tr> :
+						trainData.down.map((item: any) => (
 							<tr key={item.curr_time + item.ttnt}>
 								<td>{item.time === null ? '-' : item.time}</td>
 								<td>{item.plat === null ? '-' : `Platform ${item.plat}`}</td>
@@ -197,7 +196,8 @@ function MTRNextTrain() {
 				</tbody>
 			</Table>
 		</Container>
+		</>
 	);
-}
+};
 
 export default MTRNextTrain;

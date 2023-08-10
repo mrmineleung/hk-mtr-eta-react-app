@@ -1,17 +1,18 @@
 {
-  "name": "mtr",
-  "version": "0.1.0",
+  "name": "hk-mtr-eta-react-app",
+  "version": "1.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "bootstrap": "^4.5.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "^2.1.3",
-    "reactstrap": "^8.6.0",
-    "tiny-skeleton-loader-react": "^1.1.4"
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "bootstrap": "^5.3.1",
+    "fsevents": "^2.3.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1",
+    "reactstrap": "^9.2.0",
+    "tiny-skeleton-loader-react": "^1.2.1"
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
@@ -33,5 +34,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/reactstrap": "^8.7.2",
+    "typescript": "^5.0.2"
+  },
+  "overrides": {
+    "typescript": "^5.0.2"
   }
 }
