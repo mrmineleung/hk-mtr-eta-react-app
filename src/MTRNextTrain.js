@@ -3,7 +3,6 @@ import './App.css';
 import { Container, Table, Button, Row, Col, Alert } from 'reactstrap';
 import Dropdown from './customize/Dropdown';
 import SkeletonLoader from 'tiny-skeleton-loader-react';
-import mtr_sta from './data/MTRStation';
 import mtr_line_menu from './data/Menu'
 
 
@@ -17,6 +16,7 @@ function MTRNextTrain() {
 	const [isError, setIsError] = useState(false);
 	const [isRefresh, setIsRefresh] = useState(true);
 	const [isSpecialTrainServicesArrangement, setIsSpecialTrainServicesArrangement] = useState(false);
+	const [isDelay, setIsDelay] = useState(false);
 	const [specialTrainServicesArrangement, setSpecialTrainServicesArrangement] = useState({});
 	const [weatherWarningMessage, setWeatherWarningMessage] = useState("");
 
@@ -42,28 +42,29 @@ function MTRNextTrain() {
 					let { UP: up, DOWN: down } = data.data[name]
 					console.log("up", up, "down", down)
 					if (up === null || up === undefined) {
-						up = [{ curr_time: 0, time: 0, plat: '', dest: 'NUL', ttnt: '' }]
+						up = [{ curr_time: null, time: null, plat: null, dest: null, ttnt: null }]
 					}
 
 					if (down === null || down === undefined) {
-						down = [{ curr_time: 0, time: 0, plat: '', dest: 'NUL', ttnt: '' }]
+						down = [{ curr_time: null, time: null, plat: null, dest: null, ttnt: null }]
 					}
 					setTrainData({ up: up, down: down })
+					setIsDelay(data.isdelay === 'Y' ? true : false)
 				} else if (data.status === 0) {
 					setIsSpecialTrainServicesArrangement(true)
 					setSpecialTrainServicesArrangement({ message: data.message, url: data.url })
 				}
-				setTimeout(function() {
+				setTimeout(function () {
 					setIsLoading(false)
-				 }, 10000);
+				}, 10000);
 
 			})
 			.catch(error => {
 				console.error(error)
 				setIsError(true)
-				setTimeout(function() {
+				setTimeout(function () {
 					setIsLoading(false)
-				 }, 10000);
+				}, 10000);
 				setIsRefresh(false)
 				setIsSpecialTrainServicesArrangement(false)
 			})
@@ -77,18 +78,18 @@ function MTRNextTrain() {
 				setIsError(false)
 				let { warningMessage } = data.warningMessage
 				setWeatherWarningMessage(warningMessage)
-				setTimeout(function() {
+				setTimeout(function () {
 					setIsLoading(false)
-				 }, 1000);
-				
+				}, 1000);
+
 
 			})
 			.catch(error => {
 				console.error(error)
 				setIsError(true)
-				setTimeout(function() {
+				setTimeout(function () {
 					setIsLoading(false)
-				 }, 1000);
+				}, 1000);
 			})
 
 	}
@@ -119,8 +120,7 @@ function MTRNextTrain() {
 						buttonList={mtr_line_menu}
 						returnUrlParam={(line, sta) => setUrlParam({ mtr_line: line, mtr_sta: sta })}
 						returnDropdownLabel={(line, sta) => setDropdownLabel({ mtr_line: line, mtr_sta: sta })}
-						mtrLine={urlParam.mtr_line}
-						submenu="true">
+						parentId={urlParam.mtr_line}>
 					</Dropdown>
 				</Col>
 			</Row>
@@ -144,14 +144,13 @@ function MTRNextTrain() {
 					weatherWarningMessage.map(item => <Row key={item}><Col><Alert color="danger">{item}</Alert></Col></Row>)
 				) : (null)*/}
 
-			{weatherWarningMessage ?
-				(
-					<Row><Col><Alert color="danger">{weatherWarningMessage}</Alert></Col></Row>)
-				: (null)}
+			{weatherWarningMessage ? (<Row><Col><Alert color="danger">{weatherWarningMessage}</Alert></Col></Row>) : (null)}
+
+			{isDelay ? (<Row><Col><Alert color="danger">Train service is delayed</Alert></Col></Row>) : (null)}
 
 			<Table className="mt-4">
 				<thead>
-					<tr><th colSpan="4">To {mtr_line_menu.filter(x => x.code === urlParam.mtr_line).map(item => item.submenu[item.submenu.length - 1].desc)} (UP)</th></tr>
+					<tr><th colSpan="4">To {mtr_line_menu.filter(menu => menu.code === urlParam.mtr_line).map(item => item.submenu[item.submenu.length - 1].desc)} (UP)</th></tr>
 					<tr><th></th></tr>
 					<tr>
 						<th>Arrival Time</th>
@@ -161,24 +160,22 @@ function MTRNextTrain() {
 					</tr>
 				</thead>
 				<tbody>
-					{isLoading? 
-					<tr><td colSpan="4"><SkeletonLoader/></td></tr>
-				
-					 : trainData.up.map(item => (
-						<tr key={item.curr_time + item.ttnt}>
-							<td>{item.time}</td>
-							<td>Platform {item.plat}</td>
-							<td>{mtr_sta.find(sta => sta.code === item.dest).desc}</td>
-							<td>{item.ttnt} mins</td>
-						</tr>
-					))}
+					{isLoading ? <tr><td colSpan="4"><SkeletonLoader /></td></tr> :
+						trainData.up.map(item => (
+							<tr key={item.curr_time + item.ttnt}>
+								<td>{item.time === null ? '-' : item.time}</td>
+								<td>{item.plat === null ? '-' : `Platform ${item.plat}`}</td>
+								<td>{item.dest === null ? '-' : mtr_line_menu.filter(menu_item => menu_item.code === urlParam.mtr_line)[0].submenu.filter(sta => sta.code === item.dest).map(sta => sta.desc)}{item.route !== null && item.route === 'RAC' ? ' (Via Racecourse station)' : ''}</td>
+								<td>{item.ttnt === null ? '-' : `${item.ttnt} mins`}{item.timeType !== null && item.timeType === 'D' ? ' (Departure)' : ''}</td>
+							</tr>
+						))}
 				</tbody>
 			</Table>
 
 
 			<Table className="mt-4">
 				<thead>
-					<tr><th colSpan="4">To {mtr_line_menu.filter(x => x.code === urlParam.mtr_line).map(item => item.submenu[0].desc)} (DOWN)</th></tr>
+					<tr><th colSpan="4">To {mtr_line_menu.filter(menu => menu.code === urlParam.mtr_line).map(item => item.submenu[0].desc)} (DOWN)</th></tr>
 					<tr><th></th></tr>
 					<tr>
 						<th>Arrival Time</th>
@@ -188,15 +185,15 @@ function MTRNextTrain() {
 					</tr>
 				</thead>
 				<tbody>
-					{isLoading? <tr><td colSpan="4"><SkeletonLoader/></td></tr> :
-					trainData.down.map(item => (
-						<tr key={item.curr_time + item.ttnt}>
-							<td>{item.time}</td>
-							<td>Platform {item.plat}</td>
-							<td>{mtr_sta.find(sta => sta.code === item.dest).desc}</td>
-							<td>{item.ttnt} mins</td>
-						</tr>
-					))}
+					{isLoading ? <tr><td colSpan="4"><SkeletonLoader /></td></tr> :
+						trainData.down.map(item => (
+							<tr key={item.curr_time + item.ttnt}>
+								<td>{item.time === null ? '-' : item.time}</td>
+								<td>{item.plat === null ? '-' : `Platform ${item.plat}`}</td>
+								<td>{item.dest === null ? '-' : mtr_line_menu.filter(menu_item => menu_item.code === urlParam.mtr_line)[0].submenu.filter(sta => sta.code === item.dest).map(sta => sta.desc)}</td>
+								<td>{item.ttnt === null ? '-' : `${item.ttnt} mins`}</td>
+							</tr>
+						))}
 				</tbody>
 			</Table>
 		</Container>
