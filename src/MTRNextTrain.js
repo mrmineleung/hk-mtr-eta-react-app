@@ -190,8 +190,8 @@ function MTRNextTrain() {
 							<tr key={item.curr_time + item.ttnt}>
 								<td>{item.time === null ? '-' : item.time}</td>
 								<td>{item.plat === null ? '-' : `Platform ${item.plat}`}</td>
-								<td>{item.dest === null ? '-' : mtr_line_menu.filter(menu_item => menu_item.code === urlParam.mtr_line)[0].submenu.filter(sta => sta.code === item.dest).map(sta => sta.desc)}</td>
-								<td>{item.ttnt === null ? '-' : `${item.ttnt} mins`}</td>
+								<td>{item.dest === null ? '-' : mtr_line_menu.filter(menu_item => menu_item.code === urlParam.mtr_line)[0].submenu.filter(sta => sta.code === item.dest).map(sta => sta.desc)}{item.route !== null && item.route === 'RAC' ? ' (Via Racecourse station)' : ''}</td>
+								<td>{item.ttnt === null ? '-' : `${item.ttnt} mins`}{item.timeType !== null && item.timeType === 'D' ? ' (Departure)' : ''}</td>
 							</tr>
 						))}
 				</tbody>
