@@ -7,21 +7,22 @@ interface Props {
     title: string;
     parentId?: string;
     selectedTrainLine: any;
+    theme: string;
     returnUrlParam: (line: string, station: string) => void;
     returnDropdownLabel: (line: string, station: string) => void;
 }
 
-const Dropdown: React.FC<Props> = ({ title, parentId, selectedTrainLine, returnUrlParam, returnDropdownLabel }) => {
+const Dropdown: React.FC<Props> = ({ title, parentId, selectedTrainLine, theme, returnUrlParam, returnDropdownLabel }) => {
 
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
     const toggle = () => setDropdownOpen(!dropdownOpen);
 
     return (
         <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} className="my-dropdown">
-            <DropdownToggle caret size="lg">
+            <DropdownToggle caret size="lg" color={theme === 'dark'? 'dark' : 'secondary'}>
                 {title}
             </DropdownToggle>
-            <DropdownMenu>
+            <DropdownMenu dark={theme === 'dark'}>
                 {
                     parentId === '' || parentId === undefined || parentId === null ?
                     selectedTrainLine.map((item: any) => (
