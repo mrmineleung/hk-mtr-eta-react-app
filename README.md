@@ -6,9 +6,9 @@ Data provided by MTR Corporation Limited
 
 FYI. https://data.gov.hk/en-data/dataset/mtr-data2-nexttrain-data
 
-![image](https://github.com/mrmineleung/hk-mtr-eta-react-app/assets/42923346/436515e7-7271-41a0-ab9d-c766a58bdc1a)
+![image](https://github.com/mrmineleung/hk-mtr-eta-react-app/assets/42923346/dde65579-9521-45cc-848c-5534a9e6962d)
 
-![image](https://github.com/mrmineleung/hk-mtr-eta-react-app/assets/42923346/d498264a-1023-491d-a5d4-77092581fb91)
+![image](https://github.com/mrmineleung/hk-mtr-eta-react-app/assets/42923346/9cffbbe0-3268-47b9-bdbb-9f17d7b8378b)
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
