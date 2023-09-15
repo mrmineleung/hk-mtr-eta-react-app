@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { Container, Table, Button, Row, Col, Alert } from 'reactstrap';
+import { Container, Table, Button, Row, Col, Alert, Accordion, AccordionItem, AccordionHeader, AccordionBody } from 'reactstrap';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { useTranslation } from 'react-i18next';
@@ -28,10 +28,12 @@ const MTRNextTrain: React.FC<Props> = ({ theme }) => {
 	const [isSpecialTrainServicesArrangement, setIsSpecialTrainServicesArrangement] = useState<boolean>(false);
 	const [isDelay, setIsDelay] = useState<boolean>(false);
 	const [specialTrainServicesArrangement, setSpecialTrainServicesArrangement] = useState<{ message: string, url: string }>({ message: '', url: '' });
-	const [weatherWarningMessage, setWeatherWarningMessage] = useState<string>("");
+	const [weatherWarningMessage, setWeatherWarningMessage] = useState<string[]>(['']);
 	const [currentTime, setCurrentTime] = useState<Date>(new Date())
 	const [lastUpdateTime, setLastUpdateTime] = useState<Date>(new Date())
 	const [t, i18n] = useTranslation();
+	const [isOpenNotice, setIsOpenNotice] = useState<string>('1');
+
 
 
 	const handleRefreshButton = () => {
@@ -99,13 +101,13 @@ const MTRNextTrain: React.FC<Props> = ({ theme }) => {
 			})
 
 
-		fetch(`https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=en`, { keepalive: true })
+		fetch(`https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=${lang}`, { keepalive: true })
 			.then(response => response.json())
 			.then(data => {
 				console.log(data)
 				setIsLoading(true)
 				setIsError(false)
-				let { warningMessage } = data.warningMessage
+				let warningMessage = data.warningMessage
 				setWeatherWarningMessage(warningMessage)
 				setTimeout(function () {
 					setIsLoading(false)
@@ -161,12 +163,26 @@ const MTRNextTrain: React.FC<Props> = ({ theme }) => {
 					</Alert>) : (null)}
 
 				<br></br>
-				{/*weatherWarningMessage !== null || weatherWarningMessage !== undefined || weatherWarningMessage.length > 0 ?
-				(
-					weatherWarningMessage.map(item => <Row key={item}><Col><Alert color="danger">{item}</Alert></Col></Row>)
-				) : (null)*/}
 
-				{weatherWarningMessage ? (<Row><Col><Alert color={theme === 'dark' ? theme : 'danger'}>{weatherWarningMessage}</Alert></Col></Row>) : (null)}
+				{
+					weatherWarningMessage ? <Accordion open={isOpenNotice} {...{
+						toggle: (id) => {
+							if (isOpenNotice === id) {
+								setIsOpenNotice('');
+							} else {
+								setIsOpenNotice(id);
+							}
+						}
+					}}>
+						<AccordionItem>
+							<AccordionHeader targetId="1">{t('weather_warning_label')}</AccordionHeader>
+							<AccordionBody accordionId="1">
+								{weatherWarningMessage.map(str => <p>{str}</p>)}
+							</AccordionBody>
+						</AccordionItem>
+					</Accordion> : null}
+				<br />
+
 
 				{isDelay ? (<Row><Col><Alert color={theme === 'dark' ? theme : 'danger'}>Train service is delayed</Alert></Col></Row>) : (null)}
 
@@ -188,7 +204,7 @@ const MTRNextTrain: React.FC<Props> = ({ theme }) => {
 						</tr>
 					</thead>
 					<tbody>
-						{isLoading ? <tr><td colSpan={3}><SkeletonLoader /></td></tr> :
+						{isLoading ? <tr><td colSpan={3}><SkeletonLoader background={theme === 'dark' ? '#444444' : '#eff1f6'} /></td></tr> :
 							trainData.up.map((item: any) => (
 								<tr key={item.curr_time + item.ttnt + Math.floor(Math.random() * 100000)}>
 									<td className={"w-25"}>{item.dest === null ? '-' : mtr_line_menu.filter(menu_item => menu_item.code === urlParam.mtr_line)[0].submenu.filter(sta => sta.code === item.dest).map(sta => t(`sta_${sta.code}_label`))}{item.route !== null && item.route === 'RAC' ? ' (Via Racecourse station)' : ''}</td>
@@ -204,7 +220,7 @@ const MTRNextTrain: React.FC<Props> = ({ theme }) => {
 
 				<Table className="mt-3" dark={theme === 'dark'}>
 					<thead>
-						<tr><th colSpan={3}>{t('to_label')} {mtr_line_menu.filter(menu => menu.code === urlParam.mtr_line).map(item => t(`sta_${item.submenu[item.submenu.length - 1].code}_label`))} (DOWN)</th></tr>
+						<tr><th colSpan={3}>{t('to_label')} {mtr_line_menu.filter(menu => menu.code === urlParam.mtr_line).map(item => t(`sta_${item.submenu[0].code}_label`))} (DOWN)</th></tr>
 						<tr>
 							<th className={"w-25"}>{t('destination_label')}</th>
 							<th className={"w-25"}>{t('platform_label')}</th>
@@ -212,7 +228,7 @@ const MTRNextTrain: React.FC<Props> = ({ theme }) => {
 						</tr>
 					</thead>
 					<tbody>
-						{isLoading ? <tr><td colSpan={3}><SkeletonLoader /></td></tr> :
+						{isLoading ? <tr><td colSpan={3}><SkeletonLoader background={theme === 'dark' ? '#444444' : '#eff1f6'} /></td></tr> :
 							trainData.down.map((item: any) => (
 								<tr key={item.curr_time + item.ttnt + Math.floor(Math.random() * 100000)}>
 									<td className={"w-25"}>{item.dest === null ? '-' : mtr_line_menu.filter(menu_item => menu_item.code === urlParam.mtr_line)[0].submenu.filter(sta => sta.code === item.dest).map(sta => t(`sta_${sta.code}_label`))}{item.route !== null && item.route === 'RAC' ? ' (Via Racecourse station)' : ''}</td>

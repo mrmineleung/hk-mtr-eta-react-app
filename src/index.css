@@ -16,3 +16,20 @@ code {
   background-color: #333;
   color: #fff;
 }
+
+.accordion-item{background-color:#262525 !important;border:1px solid rgba(0,0,0,.125)!important; color: #fff!important;}
+
+
+
+.accordion-button {
+  background-color: #535353 !important;
+  color: #fff !important;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #212529;
+}

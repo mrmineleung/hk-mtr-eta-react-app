@@ -7,6 +7,7 @@
     "refresh_button_label": "Refresh",
     "current_time_label": "Current Time",
     "last_update_label": "Last Update",
+    "weather_warning_label": "Weather Warning",
     "to_label": "To",
     "destination_label": "Destination",
     "platform_label": "Platform",
