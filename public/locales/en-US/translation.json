@@ -20,6 +20,7 @@
     "line_SIL_label": "South Island Line",
     "line_TWL_label": "Tsuen Wan Line",
     "line_ISL_label": "Island Line",
+    "line_KTL_label": "Kwun Tong Line",
     "sta_HOK_label": "Hong Kong",
 	"sta_KOW_label": "Kowloon",
     "sta_TSY_label": "Tsing Yi",
@@ -107,5 +108,14 @@
     "sta_SWH_label": "Sai Wan Ho", 
     "sta_SKW_label": "Shau Kei Wan", 
     "sta_HFC_label": "Heng Fa Chuen", 
-    "sta_CHW_label": "Chai Wan"
+    "sta_CHW_label": "Chai Wan",
+    "sta_WHA_label": "Whampoa",
+    "sta_SKM_label": "Shek Kip Mei",
+    "sta_LOF_label": "Lok Fu",
+    "sta_WTS_label": "Wong Tai Sin",
+    "sta_CHH_label": "Choi Hung",
+    "sta_KOB_label": "Kowloon Bay",
+    "sta_NTK_label": "Ngau Tau Kok",
+    "sta_KWT_label": "Kwun Tong",
+    "sta_LAT_label": "Lam Tin"
 }

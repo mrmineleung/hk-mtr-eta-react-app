@@ -23,6 +23,7 @@
     "line_SIL_label": "南港島綫",
     "line_TWL_label": "荃灣綫",
     "line_ISL_label": "港島綫",
+    "line_KTL_label": "觀塘綫",
     "sta_HOK_label": "香港站",
 	"sta_KOW_label": "九龍站",
     "sta_TSY_label": "青衣站",
@@ -110,5 +111,14 @@
     "sta_SWH_label": "西灣河站",
     "sta_SKW_label": "筲箕灣站",
     "sta_HFC_label": "杏花邨站",
-    "sta_CHW_label": "柴灣站"
+    "sta_CHW_label": "柴灣站",
+    "sta_WHA_label": "黃埔站",
+    "sta_SKM_label": "石硤尾站",
+    "sta_LOF_label": "樂富站",
+    "sta_WTS_label": "黃大仙站",
+    "sta_CHH_label": "彩虹站",
+    "sta_KOB_label": "九龍灣站",
+    "sta_NTK_label": "牛頭角站",
+    "sta_KWT_label": "觀塘站",
+    "sta_LAT_label": "藍田站"
 }

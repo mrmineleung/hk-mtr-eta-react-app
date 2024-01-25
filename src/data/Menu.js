@@ -7,8 +7,8 @@ const mtr_line_menu = [
 			{ code: "KOW", desc: "Kowloon" },
 			{ code: "TSY", desc: "Tsing Yi" },
 			{ code: "AIR", desc: "Airport" },
-			{ code: "AWE", desc: "AsiaWorld Expo" }
-		]
+			{ code: "AWE", desc: "AsiaWorld Expo" },
+		],
 	},
 	{
 		code: "TCL",
@@ -21,8 +21,8 @@ const mtr_line_menu = [
 			{ code: "LAK", desc: "Lai King" },
 			{ code: "TSY", desc: "Tsing Yi" },
 			{ code: "SUN", desc: "Sunny Bay" },
-			{ code: "TUC", desc: "Tung Chung" }
-		]
+			{ code: "TUC", desc: "Tung Chung" },
+		],
 	},
 	{
 		code: "TML",
@@ -54,8 +54,8 @@ const mtr_line_menu = [
 			{ code: "LOP", desc: "Long Ping" },
 			{ code: "TIS", desc: "Tin Shui Wai" },
 			{ code: "SIH", desc: "Siu Hong" },
-			{ code: "TUM", desc: "Tuen Mun" }
-		]
+			{ code: "TUM", desc: "Tuen Mun" },
+		],
 	},
 	{
 		code: "TKL",
@@ -68,248 +68,323 @@ const mtr_line_menu = [
 			{ code: "TKO", desc: "Tseung Kwan O" },
 			{ code: "LHP", desc: "LOHAS Park" },
 			{ code: "HAH", desc: "Hang Hau" },
-			{ code: "POA", desc: "Po Lam" }
-		]
+			{ code: "POA", desc: "Po Lam" },
+		],
 	},
 	{
 		code: "EAL",
 		desc: "East Rail Line",
 		submenu: [
 			{
-				"code": "ADM",
-				"desc": "Admiralty"
+				code: "ADM",
+				desc: "Admiralty",
 			},
 			{
-				"code": "EXC",
-				"desc": "Exhibition Centre"
+				code: "EXC",
+				desc: "Exhibition Centre",
 			},
 			{
-				"code": "HUH",
-				"desc": "Hung Hom"
+				code: "HUH",
+				desc: "Hung Hom",
 			},
 			{
-				"code": "MKK",
-				"desc": "Mong Kok East"
+				code: "MKK",
+				desc: "Mong Kok East",
 			},
 			{
-				"code": "KOT",
-				"desc": "Kowloon Tong"
+				code: "KOT",
+				desc: "Kowloon Tong",
 			},
 			{
-				"code": "TAW",
-				"desc": "Tai Wai"
+				code: "TAW",
+				desc: "Tai Wai",
 			},
 			{
-				"code": "SHT",
-				"desc": "Sha Tin"
+				code: "SHT",
+				desc: "Sha Tin",
 			},
 			{
-				"code": "FOT",
-				"desc": "Fo Tan"
+				code: "FOT",
+				desc: "Fo Tan",
 			},
 			{
-				"code": "RAC",
-				"desc": "Racecourse"
+				code: "RAC",
+				desc: "Racecourse",
 			},
 			{
-				"code": "UNI",
-				"desc": "University"
+				code: "UNI",
+				desc: "University",
 			},
 			{
-				"code": "TAP",
-				"desc": "Tai Po Market"
+				code: "TAP",
+				desc: "Tai Po Market",
 			},
 			{
-				"code": "TWO",
-				"desc": "Tai Wo"
+				code: "TWO",
+				desc: "Tai Wo",
 			},
 			{
-				"code": "FAN",
-				"desc": "Fanling"
+				code: "FAN",
+				desc: "Fanling",
 			},
 			{
-				"code": "SHS",
-				"desc": "Sheung Shui"
+				code: "SHS",
+				desc: "Sheung Shui",
 			},
 			{
-				"code": "LOW",
-				"desc": "Lo Wu"
+				code: "LOW",
+				desc: "Lo Wu",
 			},
 			{
-				"code": "LMC",
-				"desc": "Lok Ma Chau"
-			}
-		]
+				code: "LMC",
+				desc: "Lok Ma Chau",
+			},
+		],
 	},
 	{
-		code: "SIL", desc: "South Island Line",
+		code: "SIL",
+		desc: "South Island Line",
 		submenu: [
 			{
-				"code": "ADM",
-				"desc": "Admiralty"
+				code: "ADM",
+				desc: "Admiralty",
 			},
 			{
-				"code": "OCP",
-				"desc": "Ocean Park"
+				code: "OCP",
+				desc: "Ocean Park",
 			},
 			{
-				"code": "WCH",
-				"desc": "Wong Chuk Hang"
+				code: "WCH",
+				desc: "Wong Chuk Hang",
 			},
 			{
-				"code": "LET",
-				"desc": "Lei Tung"
+				code: "LET",
+				desc: "Lei Tung",
 			},
 			{
-				"code": "SOH",
-				"desc": "South Horizons"
-			}
-		]
+				code: "SOH",
+				desc: "South Horizons",
+			},
+		],
 	},
 	{
 		code: "TWL",
 		desc: "Tsuen Wan Line",
 		submenu: [
 			{
-				"code": "CEN",
-				"desc": "Central"
+				code: "CEN",
+				desc: "Central",
 			},
 			{
-				"code": "ADM",
-				"desc": "Admiralty"
+				code: "ADM",
+				desc: "Admiralty",
 			},
 			{
-				"code": "TST",
-				"desc": "Tsim Sha Tsui"
+				code: "TST",
+				desc: "Tsim Sha Tsui",
 			},
 			{
-				"code": "JOR",
-				"desc": "Jordan"
+				code: "JOR",
+				desc: "Jordan",
 			},
 			{
-				"code": "YMT",
-				"desc": "Yau Ma Tei"
+				code: "YMT",
+				desc: "Yau Ma Tei",
 			},
 			{
-				"code": "MOK",
-				"desc": "Mong Kok"
+				code: "MOK",
+				desc: "Mong Kok",
 			},
 			{
-				"code": "PRE",
-				"desc": "Price Edward"
+				code: "PRE",
+				desc: "Price Edward",
 			},
 			{
-				"code": "SSP",
-				"desc": "Sham Shui Po"
+				code: "SSP",
+				desc: "Sham Shui Po",
 			},
 			{
-				"code": "CSW",
-				"desc": "Cheung Sha Wan"
+				code: "CSW",
+				desc: "Cheung Sha Wan",
 			},
 			{
-				"code": "LCK",
-				"desc": "Lai Chi Kok"
+				code: "LCK",
+				desc: "Lai Chi Kok",
 			},
 			{
-				"code": "MEF",
-				"desc": "Mei Foo"
+				code: "MEF",
+				desc: "Mei Foo",
 			},
 			{
-				"code": "LAK",
-				"desc": "Lai King"
+				code: "LAK",
+				desc: "Lai King",
 			},
 			{
-				"code": "KWF",
-				"desc": "Kwai Fong"
+				code: "KWF",
+				desc: "Kwai Fong",
 			},
 			{
-				"code": "KWH",
-				"desc": "Kwai Hing"
+				code: "KWH",
+				desc: "Kwai Hing",
 			},
 			{
-				"code": "TWH",
-				"desc": "Tai Wo Hau"
+				code: "TWH",
+				desc: "Tai Wo Hau",
 			},
 			{
-				"code": "TSW",
-				"desc": "Tsuen Wan"
-			}
-		]
+				code: "TSW",
+				desc: "Tsuen Wan",
+			},
+		],
 	},
 	{
 		code: "ISL",
 		desc: "Island Line",
 		submenu: [
 			{
-				"code": "KET",
-				"desc": "Kennedy Town"
+				code: "KET",
+				desc: "Kennedy Town",
 			},
 			{
-				"code": "HKU",
-				"desc": "HKU"
+				code: "HKU",
+				desc: "HKU",
 			},
 			{
-				"code": "SYP",
-				"desc": "Sai Ying Pun"
+				code: "SYP",
+				desc: "Sai Ying Pun",
 			},
 			{
-				"code": "SHW",
-				"desc": "Sheung Wan"
+				code: "SHW",
+				desc: "Sheung Wan",
 			},
 			{
-				"code": "CEN",
-				"desc": "Central"
+				code: "CEN",
+				desc: "Central",
 			},
 			{
-				"code": "ADM",
-				"desc": "Admiralty"
+				code: "ADM",
+				desc: "Admiralty",
 			},
 			{
-				"code": "WAC",
-				"desc": "Wan Chai"
+				code: "WAC",
+				desc: "Wan Chai",
 			},
 			{
-				"code": "CAB",
-				"desc": "Causeway Bay"
+				code: "CAB",
+				desc: "Causeway Bay",
 			},
 			{
-				"code": "TIH",
-				"desc": "Tin Hau"
+				code: "TIH",
+				desc: "Tin Hau",
 			},
 			{
-				"code": "FOH",
-				"desc": "Fortress Hill"
+				code: "FOH",
+				desc: "Fortress Hill",
 			},
 			{
-				"code": "NOP",
-				"desc": "North Point"
+				code: "NOP",
+				desc: "North Point",
 			},
 			{
-				"code": "QUB",
-				"desc": "Quarry Bay"
+				code: "QUB",
+				desc: "Quarry Bay",
 			},
 			{
-				"code": "TAK",
-				"desc": "Tai Koo"
+				code: "TAK",
+				desc: "Tai Koo",
 			},
 			{
-				"code": "SWH",
-				"desc": "Sai Wan Ho"
+				code: "SWH",
+				desc: "Sai Wan Ho",
 			},
 			{
-				"code": "SKW",
-				"desc": "Shau Kei Wan"
+				code: "SKW",
+				desc: "Shau Kei Wan",
 			},
 			{
-				"code": "HFC",
-				"desc": "Heng Fa Chuen"
+				code: "HFC",
+				desc: "Heng Fa Chuen",
 			},
 			{
-				"code": "CHW",
-				"desc": "Chai Wan"
+				code: "CHW",
+				desc: "Chai Wan",
+			},
+		],
+	},
+	{
+		code: "KTL",
+		desc: "Kwun Tong Line",
+		submenu: [
+			{
+				code: "WHA",
+				desc: "Whampoa"
+			},
+			{
+				code: "HOM",
+				desc: "Ho Man Tin"
+			},
+			{
+				code: "YMT",
+				desc: "Yau Ma Tei"
+			},
+			{
+				code: "MOK",
+				desc: "Mong Kok"
+			},
+			{
+				code: "PRE",
+				desc: "Prince Edward"
+			},
+			{
+				code: "SKM",
+				desc: "Shek Kip Mei"
+			},
+			{
+				code: "KOT",
+				desc: "Kowloon Tong"
+			},
+			{
+				code: "LOF",
+				desc: "Lok Fu"
+			},
+			{
+				code: "WTS",
+				desc: "Wong Tai Sin"
+			},
+			{
+				code: "DIH",
+				desc: "Diamond Hill"
+			},
+			{
+				code: "CHH",
+				desc: "Choi Hung"
+			},
+			{
+				code: "KOB",
+				desc: "Kowloon Bay"
+			},
+			{
+				code: "NTK",
+				desc: "Ngau Tau Kok"
+			},
+			{
+				code: "KWT",
+				desc: "Kwun Tong"
+			},
+			{
+				code: "LAT",
+				desc: "Lam Tin"
+			},
+			{
+				code: "YAT",
+				desc: "Yau Tong"
+			},
+			{
+				code: "TIK",
+				desc: "Tiu Keng Leng"
 			}
 		]
 	}
-]
+];
 
-export default mtr_line_menu
+export default mtr_line_menu;
