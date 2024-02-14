@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
-import './Dropdown.css'
+import '../styles/Dropdown.css'
+import { Theme } from '../MTRNextTrain';
 
-interface Props {
-    children?: React.ReactNode;
+interface MenuDropdownProps {
     title: string;
-    parentId?: string;
+    parentId?: string | null;
     datasource: [...any];
-    theme: string;
+    theme: Theme;
     returnUrlParam: (line: string, station: string) => void;
 }
 
-const Dropdown: React.FC<Props> = ({ title, parentId, datasource, theme, returnUrlParam }) => {
+const Dropdown = ({ title, parentId, datasource, theme, returnUrlParam }: MenuDropdownProps) => {
 
     const { t } = useTranslation();
 

@@ -1,4 +1,13 @@
-const mtr_line_menu = [
+interface Menu {
+		code: string
+		desc: string
+		submenu: {
+			code: string
+			desc: string
+		}[]
+}
+
+const menu : Menu[] = [
 	{
 		code: "AEL",
 		desc: "Airport Express",
@@ -387,4 +396,5 @@ const mtr_line_menu = [
 	}
 ];
 
-export default mtr_line_menu;
+export default menu;
+
