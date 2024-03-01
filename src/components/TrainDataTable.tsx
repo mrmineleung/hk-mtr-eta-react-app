@@ -20,7 +20,7 @@ interface TrainDataTableProps {
 
 const TrainDataTable = ({theme, urlParam, isLoading, trainData, destination} : TrainDataTableProps) => {
 
-    const [t, i18n] = useTranslation();
+    const [t] = useTranslation();
 
     return <>
     <Table className="mt-3" dark={theme === 'dark'}>

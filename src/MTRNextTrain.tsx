@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import './App.css'
 import { Container, Button, Row, Col, Alert, Accordion, AccordionItem, AccordionHeader, AccordionBody } from 'reactstrap'
 import Moment from 'react-moment'
 import 'moment-timezone'
 import { useTranslation } from 'react-i18next'
 
-import Dropdown from './components/MenuDropdown'
+import Dropdown from './components/TrainMenuDropdown'
 import TrainDataTable from './components/TrainDataTable'
 import menu from './data/Menu'
 
@@ -45,10 +45,14 @@ const MTRNextTrain = ({ theme } : MTRNextTrainProps) => {
 
 	const [trainData, setTrainData] = useState<NextTrainData>({ up: [], down: [] });
 	const [urlParam, setUrlParam] = useState<NextTrainUrlParam>(() => {
-		return localStorage.getItem('selected_line') !== null && localStorage.getItem('selected_station') !== null ?
-			{ line: localStorage.getItem('selected_line'), station: localStorage.getItem('selected_station') } :
-			{ line: menu[0].code, station: menu[0].submenu[0].code }
-	});
+        return localStorage.getItem("selected_line") !== null &&
+            localStorage.getItem("selected_station") !== null
+            ? {
+                  line: localStorage.getItem("selected_line"),
+                  station: localStorage.getItem("selected_station"),
+              }
+            : { line: menu[0].code, station: menu[0].submenu[0].code }
+    })
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isError, setIsError] = useState<boolean>(false);
 	const [isRefresh, setIsRefresh] = useState<boolean>(true);
@@ -75,81 +79,99 @@ const MTRNextTrain = ({ theme } : MTRNextTrainProps) => {
 		setUrlParam({ line: line, station: sta })
 	}
 
-	useEffect(() => {
-		let lang
-
+	const handleCurrentLanguage = useCallback(() => {
 		switch (i18n.language) {
-			case 'en': lang = 'en'
-				break
-			case 'zh': lang = 'tc'
-				break
-			default: lang = 'en'
+			case 'en': return 'en'
+			case 'zh': return 'tc'
+			default: return 'en'
 		}
+	}, 
+	[i18n.language])
 
 
-		fetch(`${NEXT_TRAIN_API_URL}?line=${urlParam.line}&sta=${urlParam.station}&lang=${lang}`, { keepalive: true })
-			.then(response => {
-				setIsLoading(true)
-				return response.json()
-			})
-			.then(data => {
-				// console.log(data)
-				setIsError(false)
-				setIsSpecialTrainServicesArrangement(false)
+	useEffect(() => {
+        const lang = handleCurrentLanguage()
 
-				if (data.status === 1) {
-					let name = `${urlParam.line}-${urlParam.station}`
-					let { UP: up, DOWN: down } = data.data[name]
-					// console.log("up", up, "down", down)
-					if (up === null || up === undefined) {
-						up = [{ curr_time: null, time: null, plat: null, dest: null, ttnt: null }]
-					}
+        const fetchNextTrainData = async () => {
+            try {
+                setIsLoading(true)
+                setIsError(false)
 
-					if (down === null || down === undefined) {
-						down = [{ curr_time: null, time: null, plat: null, dest: null, ttnt: null }]
-					}
+                const response = await fetch(
+                    `${NEXT_TRAIN_API_URL}?line=${urlParam.line}&sta=${urlParam.station}&lang=${lang}`,
+                    { keepalive: true }
+                )
+                const data = await response.json()
 
-					setTrainData({ up: up, down: down })
-					setIsDelay(data.isdelay === 'Y' ? true : false)
-				} else if (data.status === 0) {
-					setIsSpecialTrainServicesArrangement(true)
-					setSpecialTrainServicesArrangement({ message: data.message, url: data.url })
-				}
-			})
-			.catch(error => {
-				console.error(error)
-				setIsError(true)
-				setIsRefresh(false)
-				setIsSpecialTrainServicesArrangement(false)
-			})
-			.finally(() => {
-				setTimeout(function () {
-					setIsLoading(false)
-				}, 1000);
-			})
+                setIsSpecialTrainServicesArrangement(false)
 
+                if (data.status === 1) {
+                    let name = `${urlParam.line}-${urlParam.station}`
+                    let { UP: up, DOWN: down } = data.data[name]
+                    // console.log("up", up, "down", down)
+                    if (up === null || up === undefined) {
+                        up = [
+                            {
+                                curr_time: null,
+                                time: null,
+                                plat: null,
+                                dest: null,
+                                ttnt: null,
+                            },
+                        ]
+                    }
 
-		fetch(`${WEATHER_API_URL}?dataType=rhrread&lang=${lang}`, { keepalive: true })
-			.then(response => response.json())
-			.then(data => {
-				// console.log(data)
-				setIsLoading(true)
-				setIsError(false)
-				let warningMessage = data.warningMessage
-				setWeatherWarningMessage(warningMessage)
-			})
-			.catch(error => {
-				console.error(error)
-				setIsError(true)
-			})
-			.finally(() => {
-				setTimeout(function () {
-					setIsLoading(false)
-				}, 1000);
-			})
+                    if (down === null || down === undefined) {
+                        down = [
+                            {
+                                curr_time: null,
+                                time: null,
+                                plat: null,
+                                dest: null,
+                                ttnt: null,
+                            },
+                        ]
+                    }
 
-	}
-		, [urlParam, isRefresh, i18n.language])
+                    setTrainData({ up: up, down: down })
+                    setIsDelay(data.isdelay === "Y" ? true : false)
+                } else if (data.status === 0) {
+                    setIsSpecialTrainServicesArrangement(true)
+                    setSpecialTrainServicesArrangement({
+                        message: data.message,
+                        url: data.url,
+                    })
+                }
+            } catch (e) {
+                console.error(e)
+                setIsError(true)
+                setIsRefresh(false)
+                setIsSpecialTrainServicesArrangement(false)
+            } finally {
+                setTimeout(function () {
+                    setIsLoading(false)
+                }, 1000)
+            }
+        }
+
+        const fetchWeatherData = async () => {
+            try {
+                const response = await fetch(
+                    `${WEATHER_API_URL}?dataType=rhrread&lang=${lang}`,
+                    { keepalive: true }
+                )
+                const data = await response.json()
+
+                let warningMessage = data.warningMessage
+                setWeatherWarningMessage(warningMessage)
+            } catch (e) {
+                console.error(e)
+            }
+        }
+
+        fetchNextTrainData()
+        fetchWeatherData()
+    }, [urlParam, isRefresh, handleCurrentLanguage])
 
 	return (
 		<>
